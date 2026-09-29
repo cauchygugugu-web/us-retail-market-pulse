@@ -1,25 +1,14 @@
-.env
 .venv/
+.idea/
+.env
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
 .ipynb_checkpoints/
-.coverage
-htmlcov/
-dist/
-build/
-*.egg-info/
 
-# Local data extracts can be large and may be revised by the source.
 data/raw/*
-!data/raw/.gitkeep
-data/interim/*
-!data/interim/.gitkeep
 data/processed/*
-!data/processed/.gitkeep
-
-# Generated figures are reviewed before selected files are committed.
 reports/figures/*
-!reports/figures/.gitkeep
 
+*.egg-info/
