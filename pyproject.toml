@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "us-retail-market-pulse"
+version = "0.1.0"
+description = "A reproducible market analysis of growth, inflation, and inventory risk across U.S. retail categories."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2",
+  "pyarrow>=15",
+  "requests>=2.31",
+  "python-dotenv>=1.0"
+]
+
+[project.optional-dependencies]
+analysis = [
+  "jupyterlab>=4.1",
+  "nbconvert>=7.16",
+  "matplotlib>=3.8",
+  "seaborn>=0.13",
+  "plotly>=5.20",
+  "statsmodels>=0.14",
+  "scikit-learn>=1.4",
+  "streamlit>=1.32"
+]
+dev = [
+  "pytest>=8",
+  "ruff>=0.3"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
