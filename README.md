@@ -35,23 +35,21 @@ Exact Census category codes will be verified against the source metadata before 
 - [U.S. Bureau of Labor Statistics Consumer Price Index](https://www.bls.gov/cpi/data.htm)
 - Optional macro context from [FRED](https://fred.stlouisfed.org/)
 
-Source endpoints and documentation links are recorded in [`config/sources.json`](config/sources.json).
+Exact endpoints, series identifiers, units, and adjustment flags will be recorded only after
+they are verified against the official source metadata.
 
 ## Repository structure
 
 ```text
-config/                  Source registry and analysis configuration
-data/raw/                Immutable source extracts (not committed)
-data/interim/            Cleaned intermediate data (not committed)
-data/processed/          Analysis-ready data (not committed)
-docs/                    Project charter, methodology, and data dictionary
-notebooks/               Reviewable analysis notebooks
-reports/figures/         Exported portfolio figures
-src/                     Reusable Python package
-tests/                   Automated tests
-PROJECT_GUIDE.zh-CN.md   Chinese learning and continuity guide
-TASKS.md                 Milestones and the next smallest action
-LEARNING_LOG.md          Learning notes and decision log
+src/us_retail_market_pulse/  Reusable Python package
+tests/                       Automated tests
+data/raw/                    Immutable source extracts (local only)
+data/processed/              Analysis-ready data (local only)
+notebooks/                   Reviewable analysis notebooks
+reports/figures/             Exported portfolio figures
+pyproject.toml               Project metadata, dependencies, and tool configuration
+TASKS.md                     Milestones and the next smallest action
+AGENTS.md                    Continuity instructions for future Codex chats
 ```
 
 ## Local setup
@@ -62,17 +60,22 @@ Python 3.11 or newer is recommended.
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -e ".[analysis,dev]"
-Copy-Item .env.example .env
+python -m pip install -e ".[dev]"
 ```
 
-Request a Census API key, place it in `.env`, and never commit `.env`.
+An `.env.example` file will be added when the first API integration is implemented. API keys
+must be stored in a local `.env` file and must never be committed.
 
 ## Current status
 
-The repository scaffold and first notebook outline are ready. No analytical findings have been claimed yet. The next task is to inspect the Census MRTS metadata and confirm the exact series and category codes needed for the market map.
+The minimal Python package, virtual environment, automated smoke test, Ruff configuration, Git
+history, and public GitHub repository are ready. No source data has been downloaded and no
+analytical findings have been claimed.
 
-See [`TASKS.md`](TASKS.md) for the active milestone and [`PROJECT_GUIDE.zh-CN.md`](PROJECT_GUIDE.zh-CN.md) for the learning path.
+The next task is to inspect the Census MRTS metadata and confirm the exact fields, units,
+seasonal-adjustment flags, and category codes needed for the first market map. See
+[`TASKS.md`](TASKS.md) for the detailed checklist and [`AGENTS.md`](AGENTS.md) for continuity
+instructions.
 
 ## Reproducibility principles
 
@@ -83,4 +86,3 @@ See [`TASKS.md`](TASKS.md) for the active milestone and [`PROJECT_GUIDE.zh-CN.md
 - Nominal and inflation-adjusted measures are labeled explicitly.
 - Predictive relationships are not presented as causal effects.
 - Every portfolio claim must be traceable to a source and reproducible output.
-

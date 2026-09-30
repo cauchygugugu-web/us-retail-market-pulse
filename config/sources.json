@@ -1,0 +1,42 @@
+{
+  "census_mrts": {
+    "program": "Monthly Retail Trade and Food Services",
+    "program_code": "MRTS",
+    "api_endpoint": "https://api.census.gov/data/timeseries/eits/mrts",
+    "metadata_urls": {
+      "api_variables": "https://api.census.gov/data/timeseries/eits/mrts/variables.html",
+      "download_catalog": "https://www.census.gov/econ_datasets/",
+      "survey_overview": "https://www.census.gov/retail/mrts/about_the_surveys.html",
+      "methodology": "https://www.census.gov/retail/mrts/how_surveys_are_collected.html",
+      "annual_revisions": "https://www.census.gov/retail/mrts/historic_releases.html"
+    },
+    "measure": {
+      "data_type_code": "SM",
+      "value_field": "cell_value",
+      "unit_code": "MLN$",
+      "price_basis": "nominal",
+      "frequency": "monthly",
+      "category_field": "category_code",
+      "time_field": "time",
+      "month_field": "time_slot_id",
+      "seasonal_adjustment_field": "seasonally_adj",
+      "seasonal_adjustment_values": ["yes", "no"]
+    },
+    "geography": {
+      "geo_level_code": "US",
+      "label": "U.S. Total"
+    },
+    "categories": {
+      "441": "Motor Vehicle and Parts Dealers",
+      "442": "Furniture and Home Furnishings Stores",
+      "444": "Building Material and Garden Equipment and Supplies Dealers",
+      "448": "Clothing and Clothing Accessories Stores",
+      "445": "Food and Beverage Stores",
+      "454": "Nonstore Retailers"
+    },
+    "market_share_denominator": {
+      "category_code": "44000",
+      "label": "Retail Trade"
+    }
+  }
+}
