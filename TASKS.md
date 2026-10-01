@@ -11,9 +11,11 @@ This file is the durable project checklist. Update it after each meaningful work
 
 ## Next smallest action
 
-- [ ] Review and commit the validated single-sample milestone before expanding Census downloads.
+- [ ] Add and offline-test a reusable MRTS raw-extract save function that preserves the response
+  unchanged, writes key-free metadata, and refuses to overwrite existing files.
 
-Keep the first API request small and bounded; do not write findings before data validation.
+Keep each expanded API request small and bounded. Preserve raw responses before transformation,
+and do not write findings before full-period data validation.
 
 ## Completed foundation
 
@@ -70,6 +72,7 @@ Keep the first API request small and bounded; do not write findings before data 
 - [x] Test and enforce chronological month order in the MRTS row validator.
 - [x] Add focused validator error-path tests for month order and nonnumeric values.
 - [x] Run the reusable validator successfully against the saved 2024 category `441` sample.
+- [x] Review and commit the validated single-sample milestone before expanding Census downloads.
 - [ ] Recheck row uniqueness and monthly continuity when the full period is downloaded.
 - [ ] Confirm compatible units and adjustment status across all series.
 

@@ -63,18 +63,20 @@ python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
 ```
 
-An `.env.example` file will be added when the first API integration is implemented. API keys
-must be stored in a local `.env` file and must never be committed.
+Copy `.env.example` to a local `.env` file and add the Census API key there. API keys must never
+be committed.
 
 ## Current status
 
-The minimal Python package, virtual environment, automated smoke test, Ruff configuration, Git
-history, and public GitHub repository are ready. No source data has been downloaded and no
-analytical findings have been claimed.
+The project foundation and Census MRTS source definitions are ready. The request, parsing, and
+validation helpers have offline tests. A bounded 2024 sample for category `441` has been downloaded,
+preserved unchanged in `data/raw/`, and validated for structure, monthly continuity, values,
+category, geography, and seasonal-adjustment status. No analytical findings have been claimed.
 
-The next task is to inspect the Census MRTS metadata and confirm the exact fields, units,
-seasonal-adjustment flags, and category codes needed for the first market map. See
-[`TASKS.md`](TASKS.md) for the detailed checklist and [`AGENTS.md`](AGENTS.md) for continuity
+The next task is to add an offline-tested, reusable raw-extract save function that writes key-free
+metadata and refuses to overwrite existing files. After that, the Census download can be expanded
+to the six target categories and the retail-total denominator for a documented analysis period.
+See [`TASKS.md`](TASKS.md) for the detailed checklist and [`AGENTS.md`](AGENTS.md) for continuity
 instructions.
 
 ## Reproducibility principles

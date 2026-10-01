@@ -55,10 +55,14 @@ At the beginning of a new chat:
 
 ## Current handoff
 
-The minimal package structure, virtual environment, smoke test, lint configuration, local Git
-history, and public GitHub repository are working. No analysis data has been downloaded and no
-findings have been produced.
+The package structure, virtual environment, tests, lint configuration, Git history, and public
+GitHub repository are working. The official Census MRTS fields, units, seasonal-adjustment flags,
+six category codes, and retail-total denominator have been documented. A bounded 2024 category
+`441` response has been preserved unchanged in `data/raw/` with key-free metadata and has passed
+the reusable row validator. Request, parsing, and validation behavior is covered by offline tests.
+No analytical findings have been produced.
 
-The next task is to verify the official Census MRTS metadata and identify the exact fields, units,
-seasonal-adjustment flags, total-retail denominator, and category codes for the six target retail
-categories. See `TASKS.md` for the complete roadmap.
+The next task is to add and offline-test a reusable raw-extract save function that preserves the
+response unchanged, writes key-free metadata, and refuses to overwrite existing files. After that,
+select a documented analysis period and expand the bounded Census downloads to the six target
+categories and retail-total denominator. See `TASKS.md` for the complete roadmap.
