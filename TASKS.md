@@ -11,7 +11,7 @@ This file is the durable project checklist. Update it after each meaningful work
 
 ## Next smallest action
 
-- [ ] Fetch one bounded Census MRTS sample for one category and one year, then inspect its columns and row count without exposing the API key.
+- [ ] Review and commit the validated single-sample milestone before expanding Census downloads.
 
 Keep the first API request small and bounded; do not write findings before data validation.
 
@@ -36,6 +36,7 @@ Keep the first API request small and bounded; do not write findings before data 
 - [x] Verify a compatible retail-total series for market-share calculations.
 - [x] Record units, frequency, seasonal adjustment, and revision status.
 - [x] Create `config/sources.json` with verified endpoints and metadata links.
+- [x] Correct the month-identifier description in the source documentation and configuration using the saved sample.
 
 ### Data access
 
@@ -58,10 +59,18 @@ Keep the first API request small and bounded; do not write findings before data 
 
 ### Raw data and validation
 
-- [ ] Download a small bounded sample before requesting the full period.
-- [ ] Preserve the raw response without modifying it.
-- [ ] Save request parameters, source URL, and extraction timestamp.
-- [ ] Check row uniqueness, missing values, numeric conversion, and monthly continuity.
+- [x] Download and inspect a bounded 2024 MRTS sample for category `441` (12 rows, unique header).
+- [x] Preserve the 2024 category `441` raw response unchanged in `data/raw/` (657 bytes).
+- [x] Save key-free request parameters, source endpoint, raw filename, and UTC save time in companion metadata.
+- [x] Confirm the 2024 category `441` sample has 12 unique `time` months and no gaps.
+- [x] Confirm the saved 2024 category `441` sample has no null or blank values.
+- [x] Confirm all 12 saved `cell_value` strings convert to numbers without altering the raw extract.
+- [x] Confirm all saved rows match category `441`, data type `SM`, seasonal adjustment `yes`, and U.S. geography.
+- [x] Add a reusable MRTS row validator and a valid 12-month offline test.
+- [x] Test and enforce chronological month order in the MRTS row validator.
+- [x] Add focused validator error-path tests for month order and nonnumeric values.
+- [x] Run the reusable validator successfully against the saved 2024 category `441` sample.
+- [ ] Recheck row uniqueness and monthly continuity when the full period is downloaded.
 - [ ] Confirm compatible units and adjustment status across all series.
 
 ### Analysis
@@ -119,6 +128,7 @@ Keep the first API request small and bounded; do not write findings before data 
 ## Learning backlog — lower priority
 
 - [ ] After the current project work, study the Requests library: `requests.get`, `params`, `timeout`, response objects, and error handling. Do not delay the current data-access tasks for this.
+- [ ] After the current project work, study Python's `json` library: JSON data types, `json.load`, `json.loads`, `json.dump`, `json.dumps`, encoding, and common parsing errors. Do not delay the current project tasks for this.
 
 ## End-of-session checklist
 

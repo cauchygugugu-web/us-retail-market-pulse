@@ -8,6 +8,7 @@ from us_retail_market_pulse.census import (
     build_mrts_params,
     fetch_mrts_response,
     parse_mrts_response,
+    validate_mrts_rows,
 )
 
 
@@ -20,6 +21,7 @@ def test_build_mrts_params():
     assert params["data_type_code"] == "SM"
     assert params["seasonally_adj"] == "yes"
     assert params["key"] == "test-key"
+    assert params["get"] == "time_slot_id,cell_value"
 
 def test_fetch_mrts_response_without_network():
     fake_response = Mock(status_code=200)
@@ -141,3 +143,71 @@ def test_parse_mrts_response_invalid_json():
     assert "not valid json" in message.lower()
     assert fake_key not in message
     assert MRTS_URL not in message
+
+def test_validate_mrts_rows_accepts_valid_year():
+    rows = [
+        {
+            "time_slot_id": "0",
+            "cell_value": str(10000 + month),
+            "time": f"2024-{month:02d}",
+            "data_type_code": "SM",
+            "seasonally_adj": "yes",
+            "category_code": "441",
+            "us": "1"
+        }
+        for month in range(1, 13)
+    ]
+
+    result = validate_mrts_rows(
+        rows,
+        year=2024,
+        category_code="441",
+    )
+
+    assert result == rows
+
+def test_validate_mrts_rows_rejects_non_chronological_months():
+    rows = [
+        {
+            "time_slot_id": "0",
+            "cell_value": str(10000 + month),
+            "time": f"2024-{month:02d}",
+            "data_type_code": "SM",
+            "seasonally_adj": "yes",
+            "category_code": "441",
+            "us": "1"
+        }
+        for month in range(1, 13)
+    ]
+
+    rows[0], rows[1] = rows[1], rows[0]
+
+    with pytest.raises(RuntimeError, match="chronological"):
+        validate_mrts_rows(
+            rows,
+            year=2024,
+            category_code="441",
+        )
+
+def test_validate_mrts_rows_rejects_nonnumeric_value():
+    rows = [
+        {
+            "time_slot_id": "0",
+            "cell_value": str(10000 + month),
+            "time": f"2024-{month:02d}",
+            "data_type_code": "SM",
+            "seasonally_adj": "yes",
+            "category_code": "441",
+            "us": "1"
+        }
+        for month in range(1, 13)
+    ]
+
+    rows[5]["cell_value"] = "not-a-number"
+
+    with pytest.raises(RuntimeError, match="nonnumeric"):
+        validate_mrts_rows(
+            rows,
+            year=2024,
+            category_code="441",
+        )

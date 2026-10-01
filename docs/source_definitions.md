@@ -20,10 +20,12 @@ This project uses the full Monthly Retail Trade and Food Services dataset (`mrts
 | Unit | `MLN$` — millions of U.S. dollars |
 | Category field | `category_code` |
 | Time filter | `time` |
-| Month identifier | `time_slot_id` |
+| Month identifier | `time` |
 | Seasonal-adjustment field | `seasonally_adj` |
 | Available adjustment values | `yes` and `no` |
 | Price basis | Nominal — not inflation-adjusted |
+
+In the saved 2024 MRTS sample for category `441`, `time` covers `2024-01` through `2024-12` once each. `time_slot_id` is `0` in every row, so it is not a unique month identifier in this sample.
 
 ## Retail categories
 
